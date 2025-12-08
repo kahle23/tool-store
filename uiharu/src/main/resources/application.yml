@@ -1,0 +1,63 @@
+server:
+  port: 9926
+  servlet:
+    session:
+      timeout: 30M
+  tomcat:
+    min-spare-threads: 5
+    max-threads: 300
+    uri-encoding: utf-8
+
+spring:
+  application:
+    name: uiharu
+  profiles:
+    active: default
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/uiharu?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+  thymeleaf:
+    mode: HTML5
+    cache: false
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+#  redis:
+#    host: 127.0.0.1
+#    port: 6379
+#    password: 123456
+
+logging:
+  config: classpath:logback-spring.xml
+  home: /tmp/logs/
+  level:
+    root: info
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+artoria:
+  event:
+    enabled: true
+    destination: event_record
+    trace: true
+    show-trace-record: true
+    send-trace-record: true
+  exception:
+    enabled: true
+  user:
+    enabled: false
+
+
+
+
+
+
+
