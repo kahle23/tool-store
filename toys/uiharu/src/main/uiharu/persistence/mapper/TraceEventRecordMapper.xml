@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="uiharu.persistence.mapper.TraceEventRecordMapper" >
+
+    <!-- **** (Start) This will be covered, please do not modify. **** -->
+    <resultMap id="BaseResultMap" type="uiharu.persistence.entity.TraceEventRecord" >
+        <id column="id" property="id" />
+        <result column="token_id" property="tokenId" />
+        <result column="user_id" property="userId" />
+        <result column="time" property="time" />
+        <result column="client_Id" property="clientId" />
+        <result column="level" property="level" />
+        <result column="client_app_id" property="clientAppId" />
+        <result column="client_name" property="clientName" />
+        <result column="client_user_agent" property="clientUserAgent" />
+        <result column="client_net_address" property="clientNetAddress" />
+        <result column="server_id" property="serverId" />
+        <result column="server_app_id" property="serverAppId" />
+        <result column="interface_id" property="interfaceId" />
+        <result column="request_referer" property="requestReferer" />
+        <result column="request_method" property="requestMethod" />
+        <result column="request_address" property="requestAddress" />
+        <result column="request_input" property="requestInput" />
+        <result column="response_output" property="responseOutput" />
+        <result column="error_message" property="errorMessage" />
+        <result column="process_time" property="processTime" />
+        <result column="create_user" property="createUser" />
+        <result column="create_date" property="createDate" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_date" property="updateDate" />
+        <result column="alive_flag" property="aliveFlag" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        `id`,
+        `token_id`,
+        `user_id`,
+        `time`,
+        `client_Id`,
+        `level`,
+        `client_app_id`,
+        `client_name`,
+        `client_user_agent`,
+        `client_net_address`,
+        `server_id`,
+        `server_app_id`,
+        `interface_id`,
+        `request_referer`,
+        `request_method`,
+        `request_address`,
+        `request_input`,
+        `response_output`,
+        `error_message`,
+        `process_time`,
+        `create_user`,
+        `create_date`,
+        `update_user`,
+        `update_date`,
+        `alive_flag`
+    </sql>
+
+    <sql id="Base_Selective_Where" >
+        <if test="id != null and id != ''">and `id` = #{id}</if>
+        <if test="tokenId != null and tokenId != ''">and `token_id` = #{tokenId}</if>
+        <if test="userId != null and userId != ''">and `user_id` = #{userId}</if>
+        <if test="time != null">and `time` = #{time}</if>
+        <if test="clientId != null and clientId != ''">and `client_Id` = #{clientId}</if>
+        <if test="level != null">and `level` = #{level}</if>
+        <if test="clientAppId != null and clientAppId != ''">and `client_app_id` = #{clientAppId}</if>
+        <if test="clientName != null and clientName != ''">and `client_name` = #{clientName}</if>
+        <if test="clientUserAgent != null and clientUserAgent != ''">and `client_user_agent` = #{clientUserAgent}</if>
+        <if test="clientNetAddress != null and clientNetAddress != ''">and `client_net_address` = #{clientNetAddress}</if>
+        <if test="serverId != null and serverId != ''">and `server_id` = #{serverId}</if>
+        <if test="serverAppId != null and serverAppId != ''">and `server_app_id` = #{serverAppId}</if>
+        <if test="interfaceId != null and interfaceId != ''">and `interface_id` = #{interfaceId}</if>
+        <if test="requestReferer != null and requestReferer != ''">and `request_referer` = #{requestReferer}</if>
+        <if test="requestMethod != null and requestMethod != ''">and `request_method` = #{requestMethod}</if>
+        <if test="requestAddress != null and requestAddress != ''">and `request_address` = #{requestAddress}</if>
+        <if test="requestInput != null and requestInput != ''">and `request_input` = #{requestInput}</if>
+        <if test="responseOutput != null and responseOutput != ''">and `response_output` = #{responseOutput}</if>
+        <if test="errorMessage != null and errorMessage != ''">and `error_message` = #{errorMessage}</if>
+        <if test="processTime != null">and `process_time` = #{processTime}</if>
+        <if test="createUser != null and createUser != ''">and `create_user` = #{createUser}</if>
+        <if test="createDate != null">and `create_date` = #{createDate}</if>
+        <if test="updateUser != null and updateUser != ''">and `update_user` = #{updateUser}</if>
+        <if test="updateDate != null">and `update_date` = #{updateDate}</if>
+        <if test="aliveFlag != null">and `alive_flag` = #{aliveFlag}</if>
+    </sql>
+
+    <insert id="insert" parameterType="uiharu.persistence.entity.TraceEventRecord" >
+        insert into `t_trace_event_record` (
+            <include refid="Base_Column_List" />
+        )
+        values (
+            #{id},
+            #{tokenId},
+            #{userId},
+            #{time},
+            #{clientId},
+            #{level},
+            #{clientAppId},
+            #{clientName},
+            #{clientUserAgent},
+            #{clientNetAddress},
+            #{serverId},
+            #{serverAppId},
+            #{interfaceId},
+            #{requestReferer},
+            #{requestMethod},
+            #{requestAddress},
+            #{requestInput},
+            #{responseOutput},
+            #{errorMessage},
+            #{processTime},
+            #{createUser},
+            #{createDate},
+            #{updateUser},
+            #{updateDate},
+            #{aliveFlag}
+        )
+    </insert>
+
+    <insert id="insertBatch" >
+        insert into `t_trace_event_record` (
+            <include refid="Base_Column_List" />
+        )
+        values
+        <foreach collection="recordList" index="index" item="item" separator="," >
+        (
+            #{item.id},
+            #{item.tokenId},
+            #{item.userId},
+            #{item.time},
+            #{item.clientId},
+            #{item.level},
+            #{item.clientAppId},
+            #{item.clientName},
+            #{item.clientUserAgent},
+            #{item.clientNetAddress},
+            #{item.serverId},
+            #{item.serverAppId},
+            #{item.interfaceId},
+            #{item.requestReferer},
+            #{item.requestMethod},
+            #{item.requestAddress},
+            #{item.requestInput},
+            #{item.responseOutput},
+            #{item.errorMessage},
+            #{item.processTime},
+            #{item.createUser},
+            #{item.createDate},
+            #{item.updateUser},
+            #{item.updateDate},
+            #{item.aliveFlag}
+        )
+        </foreach>
+    </insert>
+
+    <insert id="insertSelective" parameterType="uiharu.persistence.entity.TraceEventRecord" >
+        insert into `t_trace_event_record`
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >`id`, </if>
+            <if test="tokenId != null" >`token_id`, </if>
+            <if test="userId != null" >`user_id`, </if>
+            <if test="time != null" >`time`, </if>
+            <if test="clientId != null" >`client_Id`, </if>
+            <if test="level != null" >`level`, </if>
+            <if test="clientAppId != null" >`client_app_id`, </if>
+            <if test="clientName != null" >`client_name`, </if>
+            <if test="clientUserAgent != null" >`client_user_agent`, </if>
+            <if test="clientNetAddress != null" >`client_net_address`, </if>
+            <if test="serverId != null" >`server_id`, </if>
+            <if test="serverAppId != null" >`server_app_id`, </if>
+            <if test="interfaceId != null" >`interface_id`, </if>
+            <if test="requestReferer != null" >`request_referer`, </if>
+            <if test="requestMethod != null" >`request_method`, </if>
+            <if test="requestAddress != null" >`request_address`, </if>
+            <if test="requestInput != null" >`request_input`, </if>
+            <if test="responseOutput != null" >`response_output`, </if>
+            <if test="errorMessage != null" >`error_message`, </if>
+            <if test="processTime != null" >`process_time`, </if>
+            <if test="createUser != null" >`create_user`, </if>
+            <if test="createDate != null" >`create_date`, </if>
+            <if test="updateUser != null" >`update_user`, </if>
+            <if test="updateDate != null" >`update_date`, </if>
+            <if test="aliveFlag != null" >`alive_flag`, </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >#{id}, </if>
+            <if test="tokenId != null" >#{tokenId}, </if>
+            <if test="userId != null" >#{userId}, </if>
+            <if test="time != null" >#{time}, </if>
+            <if test="clientId != null" >#{clientId}, </if>
+            <if test="level != null" >#{level}, </if>
+            <if test="clientAppId != null" >#{clientAppId}, </if>
+            <if test="clientName != null" >#{clientName}, </if>
+            <if test="clientUserAgent != null" >#{clientUserAgent}, </if>
+            <if test="clientNetAddress != null" >#{clientNetAddress}, </if>
+            <if test="serverId != null" >#{serverId}, </if>
+            <if test="serverAppId != null" >#{serverAppId}, </if>
+            <if test="interfaceId != null" >#{interfaceId}, </if>
+            <if test="requestReferer != null" >#{requestReferer}, </if>
+            <if test="requestMethod != null" >#{requestMethod}, </if>
+            <if test="requestAddress != null" >#{requestAddress}, </if>
+            <if test="requestInput != null" >#{requestInput}, </if>
+            <if test="responseOutput != null" >#{responseOutput}, </if>
+            <if test="errorMessage != null" >#{errorMessage}, </if>
+            <if test="processTime != null" >#{processTime}, </if>
+            <if test="createUser != null" >#{createUser}, </if>
+            <if test="createDate != null" >#{createDate}, </if>
+            <if test="updateUser != null" >#{updateUser}, </if>
+            <if test="updateDate != null" >#{updateDate}, </if>
+            <if test="aliveFlag != null" >#{aliveFlag}, </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteByPrimaryKey" >
+        update `t_trace_event_record`
+        set
+            `update_user` = #{updateUser},
+            `update_date` = NOW(),
+            `alive_flag` = 0
+        where `alive_flag` = 1
+            and `id` = #{id}
+    </delete>
+
+    <delete id="deleteByPrimaryKeyList" >
+        update `t_trace_event_record`
+        set
+            `update_user` = #{updateUser},
+            `update_date` = NOW(),
+            `alive_flag` = 0
+        where `alive_flag` = 1
+            and `id` in
+            <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+            </foreach>
+    </delete>
+
+    <delete id="deleteSelective" parameterType="uiharu.persistence.entity.TraceEventRecord" >
+        update `t_trace_event_record`
+        set
+            `update_user` = #{updateUser},
+            `update_date` = NOW(),
+            `alive_flag` = 0
+        where `alive_flag` = 1
+            <if test="id != null" >and `id` = #{id}</if>
+            <if test="tokenId != null" >and `token_id` = #{tokenId}</if>
+            <if test="userId != null" >and `user_id` = #{userId}</if>
+            <if test="time != null" >and `time` = #{time}</if>
+            <if test="clientId != null" >and `client_Id` = #{clientId}</if>
+            <if test="level != null" >and `level` = #{level}</if>
+            <if test="clientAppId != null" >and `client_app_id` = #{clientAppId}</if>
+            <if test="clientName != null" >and `client_name` = #{clientName}</if>
+            <if test="clientUserAgent != null" >and `client_user_agent` = #{clientUserAgent}</if>
+            <if test="clientNetAddress != null" >and `client_net_address` = #{clientNetAddress}</if>
+            <if test="serverId != null" >and `server_id` = #{serverId}</if>
+            <if test="serverAppId != null" >and `server_app_id` = #{serverAppId}</if>
+            <if test="interfaceId != null" >and `interface_id` = #{interfaceId}</if>
+            <if test="requestReferer != null" >and `request_referer` = #{requestReferer}</if>
+            <if test="requestMethod != null" >and `request_method` = #{requestMethod}</if>
+            <if test="requestAddress != null" >and `request_address` = #{requestAddress}</if>
+            <if test="requestInput != null" >and `request_input` = #{requestInput}</if>
+            <if test="responseOutput != null" >and `response_output` = #{responseOutput}</if>
+            <if test="errorMessage != null" >and `error_message` = #{errorMessage}</if>
+            <if test="processTime != null" >and `process_time` = #{processTime}</if>
+            <if test="createUser != null" >and `create_user` = #{createUser}</if>
+            <if test="createDate != null" >and `create_date` = #{createDate}</if>
+            <if test="updateDate != null" >and `update_date` = #{updateDate}</if>
+            <if test="aliveFlag != null" >and `alive_flag` = #{aliveFlag}</if>
+    </delete>
+
+    <update id="updateByPrimaryKey" parameterType="uiharu.persistence.entity.TraceEventRecord" >
+        update `t_trace_event_record`
+        set
+            `id` = #{id},
+            `token_id` = #{tokenId},
+            `user_id` = #{userId},
+            `time` = #{time},
+            `client_Id` = #{clientId},
+            `level` = #{level},
+            `client_app_id` = #{clientAppId},
+            `client_name` = #{clientName},
+            `client_user_agent` = #{clientUserAgent},
+            `client_net_address` = #{clientNetAddress},
+            `server_id` = #{serverId},
+            `server_app_id` = #{serverAppId},
+            `interface_id` = #{interfaceId},
+            `request_referer` = #{requestReferer},
+            `request_method` = #{requestMethod},
+            `request_address` = #{requestAddress},
+            `request_input` = #{requestInput},
+            `response_output` = #{responseOutput},
+            `error_message` = #{errorMessage},
+            `process_time` = #{processTime},
+            `create_user` = #{createUser},
+            `create_date` = #{createDate},
+            `update_user` = #{updateUser},
+            `update_date` = #{updateDate},
+            `alive_flag` = #{aliveFlag}
+        where `alive_flag` = 1
+            and `id` = #{id}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="uiharu.persistence.entity.TraceEventRecord" >
+        update `t_trace_event_record`
+        <set>
+            <if test="id != null" >`id` = #{id}, </if>
+            <if test="tokenId != null" >`token_id` = #{tokenId}, </if>
+            <if test="userId != null" >`user_id` = #{userId}, </if>
+            <if test="time != null" >`time` = #{time}, </if>
+            <if test="clientId != null" >`client_Id` = #{clientId}, </if>
+            <if test="level != null" >`level` = #{level}, </if>
+            <if test="clientAppId != null" >`client_app_id` = #{clientAppId}, </if>
+            <if test="clientName != null" >`client_name` = #{clientName}, </if>
+            <if test="clientUserAgent != null" >`client_user_agent` = #{clientUserAgent}, </if>
+            <if test="clientNetAddress != null" >`client_net_address` = #{clientNetAddress}, </if>
+            <if test="serverId != null" >`server_id` = #{serverId}, </if>
+            <if test="serverAppId != null" >`server_app_id` = #{serverAppId}, </if>
+            <if test="interfaceId != null" >`interface_id` = #{interfaceId}, </if>
+            <if test="requestReferer != null" >`request_referer` = #{requestReferer}, </if>
+            <if test="requestMethod != null" >`request_method` = #{requestMethod}, </if>
+            <if test="requestAddress != null" >`request_address` = #{requestAddress}, </if>
+            <if test="requestInput != null" >`request_input` = #{requestInput}, </if>
+            <if test="responseOutput != null" >`response_output` = #{responseOutput}, </if>
+            <if test="errorMessage != null" >`error_message` = #{errorMessage}, </if>
+            <if test="processTime != null" >`process_time` = #{processTime}, </if>
+            <if test="createUser != null" >`create_user` = #{createUser}, </if>
+            <if test="createDate != null" >`create_date` = #{createDate}, </if>
+            <if test="updateUser != null" >`update_user` = #{updateUser}, </if>
+            <if test="updateDate != null" >`update_date` = #{updateDate}, </if>
+            <if test="aliveFlag != null" >`alive_flag` = #{aliveFlag}, </if>
+        </set>
+        where `alive_flag` = 1
+            and `id` = #{id}
+    </update>
+
+    <select id="countSelective" resultType="int" parameterType="uiharu.persistence.entity.TraceEventRecord" >
+        select
+            count(0)
+        from `t_trace_event_record`
+        where `alive_flag` = 1
+            <include refid="Base_Selective_Where" />
+    </select>
+
+    <select id="queryByPrimaryKey" resultMap="BaseResultMap" >
+        select
+            <include refid="Base_Column_List" />
+        from `t_trace_event_record`
+        where `alive_flag` = 1
+            and `id` = #{id}
+    </select>
+
+    <select id="queryByPrimaryKeyList" resultMap="BaseResultMap" >
+        select
+            <include refid="Base_Column_List" />
+        from `t_trace_event_record`
+        where `alive_flag` = 1
+            and `id` in
+            <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+            </foreach>
+    </select>
+
+    <select id="findOne" resultMap="BaseResultMap" parameterType="uiharu.persistence.entity.TraceEventRecord">
+        select
+            <include refid="Base_Column_List" />
+        from `t_trace_event_record`
+        where `alive_flag` = 1
+            <include refid="Base_Selective_Where" />
+        limit 1
+    </select>
+
+    <select id="querySelective" resultMap="BaseResultMap" parameterType="uiharu.persistence.entity.TraceEventRecord">
+        select
+            <include refid="Base_Column_List" />
+        from `t_trace_event_record`
+        where `alive_flag` = 1
+            <include refid="Base_Selective_Where" />
+    </select>
+    <!-- **** (End) This will be covered, please do not modify. **** -->
+    <!-- Generated by artoria-extend in 2020-05-24T22:44:22.588+0800. -->
+
+</mapper>

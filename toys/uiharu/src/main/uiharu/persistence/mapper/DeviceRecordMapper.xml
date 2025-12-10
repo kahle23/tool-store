@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="uiharu.persistence.mapper.DeviceRecordMapper" >
+
+    <!-- **** (Start) This will be covered, please do not modify. **** -->
+    <resultMap id="BaseResultMap" type="uiharu.persistence.entity.DeviceRecord" >
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="type" property="type" />
+        <result column="brand_name" property="brandName" />
+        <result column="model" property="model" />
+        <result column="code_name" property="codeName" />
+        <result column="display_name" property="displayName" />
+        <result column="manufacturer" property="manufacturer" />
+        <result column="description" property="description" />
+        <result column="udid" property="udid" />
+        <result column="idfa" property="idfa" />
+        <result column="register_time" property="registerTime" />
+        <result column="create_user" property="createUser" />
+        <result column="create_date" property="createDate" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_date" property="updateDate" />
+        <result column="alive_flag" property="aliveFlag" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        `id`,
+        `name`,
+        `type`,
+        `brand_name`,
+        `model`,
+        `code_name`,
+        `display_name`,
+        `manufacturer`,
+        `description`,
+        `udid`,
+        `idfa`,
+        `register_time`,
+        `create_user`,
+        `create_date`,
+        `update_user`,
+        `update_date`,
+        `alive_flag`
+    </sql>
+
+    <sql id="Base_Selective_Where" >
+        <if test="id != null and id != ''">and `id` = #{id}</if>
+        <if test="name != null and name != ''">and `name` = #{name}</if>
+        <if test="type != null and type != ''">and `type` = #{type}</if>
+        <if test="brandName != null and brandName != ''">and `brand_name` = #{brandName}</if>
+        <if test="model != null and model != ''">and `model` = #{model}</if>
+        <if test="codeName != null and codeName != ''">and `code_name` = #{codeName}</if>
+        <if test="displayName != null and displayName != ''">and `display_name` = #{displayName}</if>
+        <if test="manufacturer != null and manufacturer != ''">and `manufacturer` = #{manufacturer}</if>
+        <if test="description != null and description != ''">and `description` = #{description}</if>
+        <if test="udid != null and udid != ''">and `udid` = #{udid}</if>
+        <if test="idfa != null and idfa != ''">and `idfa` = #{idfa}</if>
+        <if test="registerTime != null">and `register_time` = #{registerTime}</if>
+        <if test="createUser != null and createUser != ''">and `create_user` = #{createUser}</if>
+        <if test="createDate != null">and `create_date` = #{createDate}</if>
+        <if test="updateUser != null and updateUser != ''">and `update_user` = #{updateUser}</if>
+        <if test="updateDate != null">and `update_date` = #{updateDate}</if>
+        <if test="aliveFlag != null">and `alive_flag` = #{aliveFlag}</if>
+    </sql>
+
+    <insert id="insert" parameterType="uiharu.persistence.entity.DeviceRecord" >
+        insert into `t_device_record` (
+            <include refid="Base_Column_List" />
+        )
+        values (
+            #{id},
+            #{name},
+            #{type},
+            #{brandName},
+            #{model},
+            #{codeName},
+            #{displayName},
+            #{manufacturer},
+            #{description},
+            #{udid},
+            #{idfa},
+            #{registerTime},
+            #{createUser},
+            #{createDate},
+            #{updateUser},
+            #{updateDate},
+            #{aliveFlag}
+        )
+    </insert>
+
+    <insert id="insertBatch" >
+        insert into `t_device_record` (
+            <include refid="Base_Column_List" />
+        )
+        values
+        <foreach collection="recordList" index="index" item="item" separator="," >
+        (
+            #{item.id},
+            #{item.name},
+            #{item.type},
+            #{item.brandName},
+            #{item.model},
+            #{item.codeName},
+            #{item.displayName},
+            #{item.manufacturer},
+            #{item.description},
+            #{item.udid},
+            #{item.idfa},
+            #{item.registerTime},
+            #{item.createUser},
+            #{item.createDate},
+            #{item.updateUser},
+            #{item.updateDate},
+            #{item.aliveFlag}
+        )
+        </foreach>
+    </insert>
+
+    <insert id="insertSelective" parameterType="uiharu.persistence.entity.DeviceRecord" >
+        insert into `t_device_record`
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >`id`, </if>
+            <if test="name != null" >`name`, </if>
+            <if test="type != null" >`type`, </if>
+            <if test="brandName != null" >`brand_name`, </if>
+            <if test="model != null" >`model`, </if>
+            <if test="codeName != null" >`code_name`, </if>
+            <if test="displayName != null" >`display_name`, </if>
+            <if test="manufacturer != null" >`manufacturer`, </if>
+            <if test="description != null" >`description`, </if>
+            <if test="udid != null" >`udid`, </if>
+            <if test="idfa != null" >`idfa`, </if>
+            <if test="registerTime != null" >`register_time`, </if>
+            <if test="createUser != null" >`create_user`, </if>
+            <if test="createDate != null" >`create_date`, </if>
+            <if test="updateUser != null" >`update_user`, </if>
+            <if test="updateDate != null" >`update_date`, </if>
+            <if test="aliveFlag != null" >`alive_flag`, </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >#{id}, </if>
+            <if test="name != null" >#{name}, </if>
+            <if test="type != null" >#{type}, </if>
+            <if test="brandName != null" >#{brandName}, </if>
+            <if test="model != null" >#{model}, </if>
+            <if test="codeName != null" >#{codeName}, </if>
+            <if test="displayName != null" >#{displayName}, </if>
+            <if test="manufacturer != null" >#{manufacturer}, </if>
+            <if test="description != null" >#{description}, </if>
+            <if test="udid != null" >#{udid}, </if>
+            <if test="idfa != null" >#{idfa}, </if>
+            <if test="registerTime != null" >#{registerTime}, </if>
+            <if test="createUser != null" >#{createUser}, </if>
+            <if test="createDate != null" >#{createDate}, </if>
+            <if test="updateUser != null" >#{updateUser}, </if>
+            <if test="updateDate != null" >#{updateDate}, </if>
+            <if test="aliveFlag != null" >#{aliveFlag}, </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteByPrimaryKey" >
+        update `t_device_record`
+        set
+            `update_user` = #{updateUser},
+            `update_date` = NOW(),
+            `alive_flag` = 0
+        where `alive_flag` = 1
+            and `id` = #{id}
+    </delete>
+
+    <delete id="deleteByPrimaryKeyList" >
+        update `t_device_record`
+        set
+            `update_user` = #{updateUser},
+            `update_date` = NOW(),
+            `alive_flag` = 0
+        where `alive_flag` = 1
+            and `id` in
+            <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+            </foreach>
+    </delete>
+
+    <delete id="deleteSelective" parameterType="uiharu.persistence.entity.DeviceRecord" >
+        update `t_device_record`
+        set
+            `update_user` = #{updateUser},
+            `update_date` = NOW(),
+            `alive_flag` = 0
+        where `alive_flag` = 1
+            <if test="id != null" >and `id` = #{id}</if>
+            <if test="name != null" >and `name` = #{name}</if>
+            <if test="type != null" >and `type` = #{type}</if>
+            <if test="brandName != null" >and `brand_name` = #{brandName}</if>
+            <if test="model != null" >and `model` = #{model}</if>
+            <if test="codeName != null" >and `code_name` = #{codeName}</if>
+            <if test="displayName != null" >and `display_name` = #{displayName}</if>
+            <if test="manufacturer != null" >and `manufacturer` = #{manufacturer}</if>
+            <if test="description != null" >and `description` = #{description}</if>
+            <if test="udid != null" >and `udid` = #{udid}</if>
+            <if test="idfa != null" >and `idfa` = #{idfa}</if>
+            <if test="registerTime != null" >and `register_time` = #{registerTime}</if>
+            <if test="createUser != null" >and `create_user` = #{createUser}</if>
+            <if test="createDate != null" >and `create_date` = #{createDate}</if>
+            <if test="updateDate != null" >and `update_date` = #{updateDate}</if>
+            <if test="aliveFlag != null" >and `alive_flag` = #{aliveFlag}</if>
+    </delete>
+
+    <update id="updateByPrimaryKey" parameterType="uiharu.persistence.entity.DeviceRecord" >
+        update `t_device_record`
+        set
+            `id` = #{id},
+            `name` = #{name},
+            `type` = #{type},
+            `brand_name` = #{brandName},
+            `model` = #{model},
+            `code_name` = #{codeName},
+            `display_name` = #{displayName},
+            `manufacturer` = #{manufacturer},
+            `description` = #{description},
+            `udid` = #{udid},
+            `idfa` = #{idfa},
+            `register_time` = #{registerTime},
+            `create_user` = #{createUser},
+            `create_date` = #{createDate},
+            `update_user` = #{updateUser},
+            `update_date` = #{updateDate},
+            `alive_flag` = #{aliveFlag}
+        where `alive_flag` = 1
+            and `id` = #{id}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="uiharu.persistence.entity.DeviceRecord" >
+        update `t_device_record`
+        <set>
+            <if test="id != null" >`id` = #{id}, </if>
+            <if test="name != null" >`name` = #{name}, </if>
+            <if test="type != null" >`type` = #{type}, </if>
+            <if test="brandName != null" >`brand_name` = #{brandName}, </if>
+            <if test="model != null" >`model` = #{model}, </if>
+            <if test="codeName != null" >`code_name` = #{codeName}, </if>
+            <if test="displayName != null" >`display_name` = #{displayName}, </if>
+            <if test="manufacturer != null" >`manufacturer` = #{manufacturer}, </if>
+            <if test="description != null" >`description` = #{description}, </if>
+            <if test="udid != null" >`udid` = #{udid}, </if>
+            <if test="idfa != null" >`idfa` = #{idfa}, </if>
+            <if test="registerTime != null" >`register_time` = #{registerTime}, </if>
+            <if test="createUser != null" >`create_user` = #{createUser}, </if>
+            <if test="createDate != null" >`create_date` = #{createDate}, </if>
+            <if test="updateUser != null" >`update_user` = #{updateUser}, </if>
+            <if test="updateDate != null" >`update_date` = #{updateDate}, </if>
+            <if test="aliveFlag != null" >`alive_flag` = #{aliveFlag}, </if>
+        </set>
+        where `alive_flag` = 1
+            and `id` = #{id}
+    </update>
+
+    <select id="countSelective" resultType="int" parameterType="uiharu.persistence.entity.DeviceRecord" >
+        select
+            count(0)
+        from `t_device_record`
+        where `alive_flag` = 1
+            <include refid="Base_Selective_Where" />
+    </select>
+
+    <select id="queryByPrimaryKey" resultMap="BaseResultMap" >
+        select
+            <include refid="Base_Column_List" />
+        from `t_device_record`
+        where `alive_flag` = 1
+            and `id` = #{id}
+    </select>
+
+    <select id="queryByPrimaryKeyList" resultMap="BaseResultMap" >
+        select
+            <include refid="Base_Column_List" />
+        from `t_device_record`
+        where `alive_flag` = 1
+            and `id` in
+            <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+            </foreach>
+    </select>
+
+    <select id="findOne" resultMap="BaseResultMap" parameterType="uiharu.persistence.entity.DeviceRecord">
+        select
+            <include refid="Base_Column_List" />
+        from `t_device_record`
+        where `alive_flag` = 1
+            <include refid="Base_Selective_Where" />
+        limit 1
+    </select>
+
+    <select id="querySelective" resultMap="BaseResultMap" parameterType="uiharu.persistence.entity.DeviceRecord">
+        select
+            <include refid="Base_Column_List" />
+        from `t_device_record`
+        where `alive_flag` = 1
+            <include refid="Base_Selective_Where" />
+    </select>
+    <!-- **** (End) This will be covered, please do not modify. **** -->
+    <!-- Generated by artoria-extend in 2020-05-24T22:43:48.310+0800. -->
+
+</mapper>

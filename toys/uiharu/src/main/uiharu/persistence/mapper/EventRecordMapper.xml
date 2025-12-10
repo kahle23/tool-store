@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="uiharu.persistence.mapper.EventRecordMapper" >
+
+    <!-- **** (Start) This will be covered, please do not modify. **** -->
+    <resultMap id="BaseResultMap" type="uiharu.persistence.entity.EventRecord" >
+        <id column="id" property="id" />
+        <result column="token_id" property="tokenId" />
+        <result column="user_id" property="userId" />
+        <result column="time" property="time" />
+        <result column="client_Id" property="clientId" />
+        <result column="name" property="name" />
+        <result column="code" property="code" />
+        <result column="type" property="type" />
+        <result column="level" property="level" />
+        <result column="description" property="description" />
+        <result column="variables_json" property="variablesJson" />
+        <result column="provider" property="provider" />
+        <result column="create_user" property="createUser" />
+        <result column="create_date" property="createDate" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_date" property="updateDate" />
+        <result column="alive_flag" property="aliveFlag" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        `id`,
+        `token_id`,
+        `user_id`,
+        `time`,
+        `client_Id`,
+        `name`,
+        `code`,
+        `type`,
+        `level`,
+        `description`,
+        `variables_json`,
+        `provider`,
+        `create_user`,
+        `create_date`,
+        `update_user`,
+        `update_date`,
+        `alive_flag`
+    </sql>
+
+    <sql id="Base_Selective_Where" >
+        <if test="id != null and id != ''">and `id` = #{id}</if>
+        <if test="tokenId != null and tokenId != ''">and `token_id` = #{tokenId}</if>
+        <if test="userId != null and userId != ''">and `user_id` = #{userId}</if>
+        <if test="time != null">and `time` = #{time}</if>
+        <if test="clientId != null and clientId != ''">and `client_Id` = #{clientId}</if>
+        <if test="name != null and name != ''">and `name` = #{name}</if>
+        <if test="code != null and code != ''">and `code` = #{code}</if>
+        <if test="type != null and type != ''">and `type` = #{type}</if>
+        <if test="level != null">and `level` = #{level}</if>
+        <if test="description != null and description != ''">and `description` = #{description}</if>
+        <if test="variablesJson != null and variablesJson != ''">and `variables_json` = #{variablesJson}</if>
+        <if test="provider != null and provider != ''">and `provider` = #{provider}</if>
+        <if test="createUser != null and createUser != ''">and `create_user` = #{createUser}</if>
+        <if test="createDate != null">and `create_date` = #{createDate}</if>
+        <if test="updateUser != null and updateUser != ''">and `update_user` = #{updateUser}</if>
+        <if test="updateDate != null">and `update_date` = #{updateDate}</if>
+        <if test="aliveFlag != null">and `alive_flag` = #{aliveFlag}</if>
+    </sql>
+
+    <insert id="insert" parameterType="uiharu.persistence.entity.EventRecord" >
+        insert into `t_event_record` (
+            <include refid="Base_Column_List" />
+        )
+        values (
+            #{id},
+            #{tokenId},
+            #{userId},
+            #{time},
+            #{clientId},
+            #{name},
+            #{code},
+            #{type},
+            #{level},
+            #{description},
+            #{variablesJson},
+            #{provider},
+            #{createUser},
+            #{createDate},
+            #{updateUser},
+            #{updateDate},
+            #{aliveFlag}
+        )
+    </insert>
+
+    <insert id="insertBatch" >
+        insert into `t_event_record` (
+            <include refid="Base_Column_List" />
+        )
+        values
+        <foreach collection="recordList" index="index" item="item" separator="," >
+        (
+            #{item.id},
+            #{item.tokenId},
+            #{item.userId},
+            #{item.time},
+            #{item.clientId},
+            #{item.name},
+            #{item.code},
+            #{item.type},
+            #{item.level},
+            #{item.description},
+            #{item.variablesJson},
+            #{item.provider},
+            #{item.createUser},
+            #{item.createDate},
+            #{item.updateUser},
+            #{item.updateDate},
+            #{item.aliveFlag}
+        )
+        </foreach>
+    </insert>
+
+    <insert id="insertSelective" parameterType="uiharu.persistence.entity.EventRecord" >
+        insert into `t_event_record`
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >`id`, </if>
+            <if test="tokenId != null" >`token_id`, </if>
+            <if test="userId != null" >`user_id`, </if>
+            <if test="time != null" >`time`, </if>
+            <if test="clientId != null" >`client_Id`, </if>
+            <if test="name != null" >`name`, </if>
+            <if test="code != null" >`code`, </if>
+            <if test="type != null" >`type`, </if>
+            <if test="level != null" >`level`, </if>
+            <if test="description != null" >`description`, </if>
+            <if test="variablesJson != null" >`variables_json`, </if>
+            <if test="provider != null" >`provider`, </if>
+            <if test="createUser != null" >`create_user`, </if>
+            <if test="createDate != null" >`create_date`, </if>
+            <if test="updateUser != null" >`update_user`, </if>
+            <if test="updateDate != null" >`update_date`, </if>
+            <if test="aliveFlag != null" >`alive_flag`, </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >#{id}, </if>
+            <if test="tokenId != null" >#{tokenId}, </if>
+            <if test="userId != null" >#{userId}, </if>
+            <if test="time != null" >#{time}, </if>
+            <if test="clientId != null" >#{clientId}, </if>
+            <if test="name != null" >#{name}, </if>
+            <if test="code != null" >#{code}, </if>
+            <if test="type != null" >#{type}, </if>
+            <if test="level != null" >#{level}, </if>
+            <if test="description != null" >#{description}, </if>
+            <if test="variablesJson != null" >#{variablesJson}, </if>
+            <if test="provider != null" >#{provider}, </if>
+            <if test="createUser != null" >#{createUser}, </if>
+            <if test="createDate != null" >#{createDate}, </if>
+            <if test="updateUser != null" >#{updateUser}, </if>
+            <if test="updateDate != null" >#{updateDate}, </if>
+            <if test="aliveFlag != null" >#{aliveFlag}, </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteByPrimaryKey" >
+        update `t_event_record`
+        set
+            `update_user` = #{updateUser},
+            `update_date` = NOW(),
+            `alive_flag` = 0
+        where `alive_flag` = 1
+            and `id` = #{id}
+    </delete>
+
+    <delete id="deleteByPrimaryKeyList" >
+        update `t_event_record`
+        set
+            `update_user` = #{updateUser},
+            `update_date` = NOW(),
+            `alive_flag` = 0
+        where `alive_flag` = 1
+            and `id` in
+            <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+            </foreach>
+    </delete>
+
+    <delete id="deleteSelective" parameterType="uiharu.persistence.entity.EventRecord" >
+        update `t_event_record`
+        set
+            `update_user` = #{updateUser},
+            `update_date` = NOW(),
+            `alive_flag` = 0
+        where `alive_flag` = 1
+            <if test="id != null" >and `id` = #{id}</if>
+            <if test="tokenId != null" >and `token_id` = #{tokenId}</if>
+            <if test="userId != null" >and `user_id` = #{userId}</if>
+            <if test="time != null" >and `time` = #{time}</if>
+            <if test="clientId != null" >and `client_Id` = #{clientId}</if>
+            <if test="name != null" >and `name` = #{name}</if>
+            <if test="code != null" >and `code` = #{code}</if>
+            <if test="type != null" >and `type` = #{type}</if>
+            <if test="level != null" >and `level` = #{level}</if>
+            <if test="description != null" >and `description` = #{description}</if>
+            <if test="variablesJson != null" >and `variables_json` = #{variablesJson}</if>
+            <if test="provider != null" >and `provider` = #{provider}</if>
+            <if test="createUser != null" >and `create_user` = #{createUser}</if>
+            <if test="createDate != null" >and `create_date` = #{createDate}</if>
+            <if test="updateDate != null" >and `update_date` = #{updateDate}</if>
+            <if test="aliveFlag != null" >and `alive_flag` = #{aliveFlag}</if>
+    </delete>
+
+    <update id="updateByPrimaryKey" parameterType="uiharu.persistence.entity.EventRecord" >
+        update `t_event_record`
+        set
+            `id` = #{id},
+            `token_id` = #{tokenId},
+            `user_id` = #{userId},
+            `time` = #{time},
+            `client_Id` = #{clientId},
+            `name` = #{name},
+            `code` = #{code},
+            `type` = #{type},
+            `level` = #{level},
+            `description` = #{description},
+            `variables_json` = #{variablesJson},
+            `provider` = #{provider},
+            `create_user` = #{createUser},
+            `create_date` = #{createDate},
+            `update_user` = #{updateUser},
+            `update_date` = #{updateDate},
+            `alive_flag` = #{aliveFlag}
+        where `alive_flag` = 1
+            and `id` = #{id}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="uiharu.persistence.entity.EventRecord" >
+        update `t_event_record`
+        <set>
+            <if test="id != null" >`id` = #{id}, </if>
+            <if test="tokenId != null" >`token_id` = #{tokenId}, </if>
+            <if test="userId != null" >`user_id` = #{userId}, </if>
+            <if test="time != null" >`time` = #{time}, </if>
+            <if test="clientId != null" >`client_Id` = #{clientId}, </if>
+            <if test="name != null" >`name` = #{name}, </if>
+            <if test="code != null" >`code` = #{code}, </if>
+            <if test="type != null" >`type` = #{type}, </if>
+            <if test="level != null" >`level` = #{level}, </if>
+            <if test="description != null" >`description` = #{description}, </if>
+            <if test="variablesJson != null" >`variables_json` = #{variablesJson}, </if>
+            <if test="provider != null" >`provider` = #{provider}, </if>
+            <if test="createUser != null" >`create_user` = #{createUser}, </if>
+            <if test="createDate != null" >`create_date` = #{createDate}, </if>
+            <if test="updateUser != null" >`update_user` = #{updateUser}, </if>
+            <if test="updateDate != null" >`update_date` = #{updateDate}, </if>
+            <if test="aliveFlag != null" >`alive_flag` = #{aliveFlag}, </if>
+        </set>
+        where `alive_flag` = 1
+            and `id` = #{id}
+    </update>
+
+    <select id="countSelective" resultType="int" parameterType="uiharu.persistence.entity.EventRecord" >
+        select
+            count(0)
+        from `t_event_record`
+        where `alive_flag` = 1
+            <include refid="Base_Selective_Where" />
+    </select>
+
+    <select id="queryByPrimaryKey" resultMap="BaseResultMap" >
+        select
+            <include refid="Base_Column_List" />
+        from `t_event_record`
+        where `alive_flag` = 1
+            and `id` = #{id}
+    </select>
+
+    <select id="queryByPrimaryKeyList" resultMap="BaseResultMap" >
+        select
+            <include refid="Base_Column_List" />
+        from `t_event_record`
+        where `alive_flag` = 1
+            and `id` in
+            <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+            </foreach>
+    </select>
+
+    <select id="findOne" resultMap="BaseResultMap" parameterType="uiharu.persistence.entity.EventRecord">
+        select
+            <include refid="Base_Column_List" />
+        from `t_event_record`
+        where `alive_flag` = 1
+            <include refid="Base_Selective_Where" />
+        limit 1
+    </select>
+
+    <select id="querySelective" resultMap="BaseResultMap" parameterType="uiharu.persistence.entity.EventRecord">
+        select
+            <include refid="Base_Column_List" />
+        from `t_event_record`
+        where `alive_flag` = 1
+            <include refid="Base_Selective_Where" />
+    </select>
+    <!-- **** (End) This will be covered, please do not modify. **** -->
+    <!-- Generated by artoria-extend in 2020-05-24T22:44:08.113+0800. -->
+
+</mapper>

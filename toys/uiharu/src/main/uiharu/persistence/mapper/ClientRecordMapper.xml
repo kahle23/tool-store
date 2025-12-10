@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="uiharu.persistence.mapper.ClientRecordMapper" >
+
+    <!-- **** (Start) This will be covered, please do not modify. **** -->
+    <resultMap id="BaseResultMap" type="uiharu.persistence.entity.ClientRecord" >
+        <id column="id" property="id" />
+        <result column="device_id" property="deviceId" />
+        <result column="app_id" property="appId" />
+        <result column="app_name" property="appName" />
+        <result column="app_type" property="appType" />
+        <result column="app_version" property="appVersion" />
+        <result column="system_name" property="systemName" />
+        <result column="system_version" property="systemVersion" />
+        <result column="system_bits" property="systemBits" />
+        <result column="user_id" property="userId" />
+        <result column="user_name" property="userName" />
+        <result column="description" property="description" />
+        <result column="register_time" property="registerTime" />
+        <result column="create_user" property="createUser" />
+        <result column="create_date" property="createDate" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_date" property="updateDate" />
+        <result column="alive_flag" property="aliveFlag" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        `id`,
+        `device_id`,
+        `app_id`,
+        `app_name`,
+        `app_type`,
+        `app_version`,
+        `system_name`,
+        `system_version`,
+        `system_bits`,
+        `user_id`,
+        `user_name`,
+        `description`,
+        `register_time`,
+        `create_user`,
+        `create_date`,
+        `update_user`,
+        `update_date`,
+        `alive_flag`
+    </sql>
+
+    <sql id="Base_Selective_Where" >
+        <if test="id != null">and `id` = #{id}</if>
+        <if test="deviceId != null and deviceId != ''">and `device_id` = #{deviceId}</if>
+        <if test="appId != null and appId != ''">and `app_id` = #{appId}</if>
+        <if test="appName != null and appName != ''">and `app_name` = #{appName}</if>
+        <if test="appType != null and appType != ''">and `app_type` = #{appType}</if>
+        <if test="appVersion != null and appVersion != ''">and `app_version` = #{appVersion}</if>
+        <if test="systemName != null and systemName != ''">and `system_name` = #{systemName}</if>
+        <if test="systemVersion != null and systemVersion != ''">and `system_version` = #{systemVersion}</if>
+        <if test="systemBits != null and systemBits != ''">and `system_bits` = #{systemBits}</if>
+        <if test="userId != null and userId != ''">and `user_id` = #{userId}</if>
+        <if test="userName != null and userName != ''">and `user_name` = #{userName}</if>
+        <if test="description != null and description != ''">and `description` = #{description}</if>
+        <if test="registerTime != null">and `register_time` = #{registerTime}</if>
+        <if test="createUser != null and createUser != ''">and `create_user` = #{createUser}</if>
+        <if test="createDate != null">and `create_date` = #{createDate}</if>
+        <if test="updateUser != null and updateUser != ''">and `update_user` = #{updateUser}</if>
+        <if test="updateDate != null">and `update_date` = #{updateDate}</if>
+        <if test="aliveFlag != null">and `alive_flag` = #{aliveFlag}</if>
+    </sql>
+
+    <insert id="insert" parameterType="uiharu.persistence.entity.ClientRecord" >
+        insert into `t_client_record` (
+            <include refid="Base_Column_List" />
+        )
+        values (
+            #{id},
+            #{deviceId},
+            #{appId},
+            #{appName},
+            #{appType},
+            #{appVersion},
+            #{systemName},
+            #{systemVersion},
+            #{systemBits},
+            #{userId},
+            #{userName},
+            #{description},
+            #{registerTime},
+            #{createUser},
+            #{createDate},
+            #{updateUser},
+            #{updateDate},
+            #{aliveFlag}
+        )
+    </insert>
+
+    <insert id="insertBatch" >
+        insert into `t_client_record` (
+            <include refid="Base_Column_List" />
+        )
+        values
+        <foreach collection="recordList" index="index" item="item" separator="," >
+        (
+            #{item.id},
+            #{item.deviceId},
+            #{item.appId},
+            #{item.appName},
+            #{item.appType},
+            #{item.appVersion},
+            #{item.systemName},
+            #{item.systemVersion},
+            #{item.systemBits},
+            #{item.userId},
+            #{item.userName},
+            #{item.description},
+            #{item.registerTime},
+            #{item.createUser},
+            #{item.createDate},
+            #{item.updateUser},
+            #{item.updateDate},
+            #{item.aliveFlag}
+        )
+        </foreach>
+    </insert>
+
+    <insert id="insertSelective" parameterType="uiharu.persistence.entity.ClientRecord" >
+        insert into `t_client_record`
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >`id`, </if>
+            <if test="deviceId != null" >`device_id`, </if>
+            <if test="appId != null" >`app_id`, </if>
+            <if test="appName != null" >`app_name`, </if>
+            <if test="appType != null" >`app_type`, </if>
+            <if test="appVersion != null" >`app_version`, </if>
+            <if test="systemName != null" >`system_name`, </if>
+            <if test="systemVersion != null" >`system_version`, </if>
+            <if test="systemBits != null" >`system_bits`, </if>
+            <if test="userId != null" >`user_id`, </if>
+            <if test="userName != null" >`user_name`, </if>
+            <if test="description != null" >`description`, </if>
+            <if test="registerTime != null" >`register_time`, </if>
+            <if test="createUser != null" >`create_user`, </if>
+            <if test="createDate != null" >`create_date`, </if>
+            <if test="updateUser != null" >`update_user`, </if>
+            <if test="updateDate != null" >`update_date`, </if>
+            <if test="aliveFlag != null" >`alive_flag`, </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >#{id}, </if>
+            <if test="deviceId != null" >#{deviceId}, </if>
+            <if test="appId != null" >#{appId}, </if>
+            <if test="appName != null" >#{appName}, </if>
+            <if test="appType != null" >#{appType}, </if>
+            <if test="appVersion != null" >#{appVersion}, </if>
+            <if test="systemName != null" >#{systemName}, </if>
+            <if test="systemVersion != null" >#{systemVersion}, </if>
+            <if test="systemBits != null" >#{systemBits}, </if>
+            <if test="userId != null" >#{userId}, </if>
+            <if test="userName != null" >#{userName}, </if>
+            <if test="description != null" >#{description}, </if>
+            <if test="registerTime != null" >#{registerTime}, </if>
+            <if test="createUser != null" >#{createUser}, </if>
+            <if test="createDate != null" >#{createDate}, </if>
+            <if test="updateUser != null" >#{updateUser}, </if>
+            <if test="updateDate != null" >#{updateDate}, </if>
+            <if test="aliveFlag != null" >#{aliveFlag}, </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteByPrimaryKey" >
+        update `t_client_record`
+        set
+            `update_user` = #{updateUser},
+            `update_date` = NOW(),
+            `alive_flag` = 0
+        where `alive_flag` = 1
+            and `id` = #{id}
+    </delete>
+
+    <delete id="deleteByPrimaryKeyList" >
+        update `t_client_record`
+        set
+            `update_user` = #{updateUser},
+            `update_date` = NOW(),
+            `alive_flag` = 0
+        where `alive_flag` = 1
+            and `id` in
+            <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+            </foreach>
+    </delete>
+
+    <delete id="deleteSelective" parameterType="uiharu.persistence.entity.ClientRecord" >
+        update `t_client_record`
+        set
+            `update_user` = #{updateUser},
+            `update_date` = NOW(),
+            `alive_flag` = 0
+        where `alive_flag` = 1
+            <if test="id != null" >and `id` = #{id}</if>
+            <if test="deviceId != null" >and `device_id` = #{deviceId}</if>
+            <if test="appId != null" >and `app_id` = #{appId}</if>
+            <if test="appName != null" >and `app_name` = #{appName}</if>
+            <if test="appType != null" >and `app_type` = #{appType}</if>
+            <if test="appVersion != null" >and `app_version` = #{appVersion}</if>
+            <if test="systemName != null" >and `system_name` = #{systemName}</if>
+            <if test="systemVersion != null" >and `system_version` = #{systemVersion}</if>
+            <if test="systemBits != null" >and `system_bits` = #{systemBits}</if>
+            <if test="userId != null" >and `user_id` = #{userId}</if>
+            <if test="userName != null" >and `user_name` = #{userName}</if>
+            <if test="description != null" >and `description` = #{description}</if>
+            <if test="registerTime != null" >and `register_time` = #{registerTime}</if>
+            <if test="createUser != null" >and `create_user` = #{createUser}</if>
+            <if test="createDate != null" >and `create_date` = #{createDate}</if>
+            <if test="updateDate != null" >and `update_date` = #{updateDate}</if>
+            <if test="aliveFlag != null" >and `alive_flag` = #{aliveFlag}</if>
+    </delete>
+
+    <update id="updateByPrimaryKey" parameterType="uiharu.persistence.entity.ClientRecord" >
+        update `t_client_record`
+        set
+            `id` = #{id},
+            `device_id` = #{deviceId},
+            `app_id` = #{appId},
+            `app_name` = #{appName},
+            `app_type` = #{appType},
+            `app_version` = #{appVersion},
+            `system_name` = #{systemName},
+            `system_version` = #{systemVersion},
+            `system_bits` = #{systemBits},
+            `user_id` = #{userId},
+            `user_name` = #{userName},
+            `description` = #{description},
+            `register_time` = #{registerTime},
+            `create_user` = #{createUser},
+            `create_date` = #{createDate},
+            `update_user` = #{updateUser},
+            `update_date` = #{updateDate},
+            `alive_flag` = #{aliveFlag}
+        where `alive_flag` = 1
+            and `id` = #{id}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="uiharu.persistence.entity.ClientRecord" >
+        update `t_client_record`
+        <set>
+            <if test="id != null" >`id` = #{id}, </if>
+            <if test="deviceId != null" >`device_id` = #{deviceId}, </if>
+            <if test="appId != null" >`app_id` = #{appId}, </if>
+            <if test="appName != null" >`app_name` = #{appName}, </if>
+            <if test="appType != null" >`app_type` = #{appType}, </if>
+            <if test="appVersion != null" >`app_version` = #{appVersion}, </if>
+            <if test="systemName != null" >`system_name` = #{systemName}, </if>
+            <if test="systemVersion != null" >`system_version` = #{systemVersion}, </if>
+            <if test="systemBits != null" >`system_bits` = #{systemBits}, </if>
+            <if test="userId != null" >`user_id` = #{userId}, </if>
+            <if test="userName != null" >`user_name` = #{userName}, </if>
+            <if test="description != null" >`description` = #{description}, </if>
+            <if test="registerTime != null" >`register_time` = #{registerTime}, </if>
+            <if test="createUser != null" >`create_user` = #{createUser}, </if>
+            <if test="createDate != null" >`create_date` = #{createDate}, </if>
+            <if test="updateUser != null" >`update_user` = #{updateUser}, </if>
+            <if test="updateDate != null" >`update_date` = #{updateDate}, </if>
+            <if test="aliveFlag != null" >`alive_flag` = #{aliveFlag}, </if>
+        </set>
+        where `alive_flag` = 1
+            and `id` = #{id}
+    </update>
+
+    <select id="countSelective" resultType="int" parameterType="uiharu.persistence.entity.ClientRecord" >
+        select
+            count(0)
+        from `t_client_record`
+        where `alive_flag` = 1
+            <include refid="Base_Selective_Where" />
+    </select>
+
+    <select id="queryByPrimaryKey" resultMap="BaseResultMap" >
+        select
+            <include refid="Base_Column_List" />
+        from `t_client_record`
+        where `alive_flag` = 1
+            and `id` = #{id}
+    </select>
+
+    <select id="queryByPrimaryKeyList" resultMap="BaseResultMap" >
+        select
+            <include refid="Base_Column_List" />
+        from `t_client_record`
+        where `alive_flag` = 1
+            and `id` in
+            <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+            </foreach>
+    </select>
+
+    <select id="findOne" resultMap="BaseResultMap" parameterType="uiharu.persistence.entity.ClientRecord">
+        select
+            <include refid="Base_Column_List" />
+        from `t_client_record`
+        where `alive_flag` = 1
+            <include refid="Base_Selective_Where" />
+        limit 1
+    </select>
+
+    <select id="querySelective" resultMap="BaseResultMap" parameterType="uiharu.persistence.entity.ClientRecord">
+        select
+            <include refid="Base_Column_List" />
+        from `t_client_record`
+        where `alive_flag` = 1
+            <include refid="Base_Selective_Where" />
+    </select>
+    <!-- **** (End) This will be covered, please do not modify. **** -->
+    <!-- Generated by artoria-extend in 2020-05-24T22:43:34.106+0800. -->
+
+</mapper>

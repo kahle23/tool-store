@@ -1,0 +1,15 @@
+server:
+  port: 9988
+
+spring:
+  application:
+    name: http-client-debug-server
+  profiles:
+    active: default
+
+logging:
+  config: classpath:logback-spring.xml
+
+
+
+
