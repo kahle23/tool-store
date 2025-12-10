@@ -136,5 +136,4 @@ if __name__ == "__main__":
     notifier = MQTTNotifier()
     notifier.start()
 
-# pyinstaller --onefile --noconsole --hidden-import=plyer.platforms.win.notification mqtt_notifier.py
-# pyinstaller --onefile --hidden-import=plyer.platforms.win.notification mqtt_notifier.py
+
